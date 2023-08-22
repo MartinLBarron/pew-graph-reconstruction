@@ -266,7 +266,7 @@ light_red_color <- "#F7D5D0"
 # graph 1 -----------------------------------------------------------------
 
 plt1 <- ggplot(data = df_total) +
-  # Add segments
+  # add segments
   geom_segment(data = df_total %>% filter(party == "Democrat/Lean Democrat"), aes(x = affiliation_swap, xend = 0, y = group, yend = group), col = light_blue_color, size = line_size) +
   geom_segment(data = df_total %>% filter(party == "Republican/Lean Republican"), aes(x = affiliation_swap, xend = 0, y = group, yend = group), col = light_red_color, size = line_size) +
 
@@ -277,11 +277,13 @@ plt1 <- ggplot(data = df_total) +
 
   # add points
   geom_point(aes(x = affiliation_swap, y = group, color = party), size = point_size) +
+  
+  # add formatting
   scale_color_manual(values = c(blue_color, red_color)) +
   theme_minimal() +
   coord_cartesian(clip = "off") +
-  annotate("text", x = -.6, y = 1.5, label = "DEMOCRAT/LEAN\nDEMOCRAT", size = 2.5, fontface = "bold") +
-  annotate("text", x = .6, y = 1.5, label = "REPUBLICAN/LEAN\nREPUBLICAN", size = 2.5, fontface = "bold") +
+  annotate("text", x = -.7, y = 1.5, label = "DEMOCRAT/LEAN\nDEMOCRAT", size = 2.5, fontface = "bold") +
+  annotate("text", x = .7, y = 1.5, label = "REPUBLICAN/LEAN\nREPUBLICAN", size = 2.5, fontface = "bold") +
   theme(
     text = element_text(family = "Helvetica", face = "bold"),
     legend.position = "none",
@@ -303,16 +305,21 @@ plt1
 
 
 plt2 <- ggplot(data = df_rep) +
-  # Add segments
+  # add segments
   geom_segment(data = . %>% filter(party == "Democrat/Lean Democrat"), aes(x = affiliation_swap, xend = 0, y = group, yend = group), col = light_blue_color, size = line_size) +
   geom_segment(data = . %>% filter(party == "Republican/Lean Republican"), aes(x = affiliation_swap, xend = 0, y = group, yend = group), col = light_red_color, size = line_size) +
 
   # add labels
   geom_text(data = . %>% filter(party == "Democrat/Lean Democrat"), aes(x = affiliation_swap, y = group, label = affiliation * 100), nudge_x = -fiddly_bit5, col = blue_color, size = 3) +
   geom_text(data = . %>% filter(party == "Republican/Lean Republican"), aes(x = affiliation_swap, y = group, label = affiliation * 100), nudge_x = fiddly_bit1, col = red_color, size = 3) +
-  scale_x_continuous(breaks = c(0), limits = c(-plot_limits, plot_limits)) +
+
   # add points
   geom_point(aes(x = affiliation_swap, y = group, color = party), size = point_size) +
+  
+  # scale
+  scale_x_continuous(breaks = c(0), limits = c(-plot_limits, plot_limits)) +
+  
+  # add formatting
   scale_color_manual(values = c(blue_color, red_color)) +
   theme_minimal() +
   theme(
@@ -336,20 +343,23 @@ plt2
 
 
 plt3 <- ggplot(data = df_dem) +
-  # Add segments
+  # add segments
   geom_segment(data = . %>% filter(party == "Democrat/Lean Democrat"), aes(x = affiliation_swap, xend = 0, y = group, yend = group), col = light_blue_color, size = line_size) +
   geom_segment(data = . %>% filter(party == "Republican/Lean Republican"), aes(x = affiliation_swap, xend = 0, y = group, yend = group), col = light_red_color, size = line_size) +
 
   # add labels
   geom_text(data = . %>% filter(party == "Democrat/Lean Democrat"), aes(x = affiliation_swap, y = group, label = affiliation * 100), nudge_x = -fiddly_bit5, col = blue_color, size = 3) +
   geom_text(data = . %>% filter(party == "Republican/Lean Republican"), aes(x = affiliation_swap, y = group, label = affiliation * 100), nudge_x = fiddly_bit1, col = red_color, size = 3) +
-  scale_x_continuous(breaks = c(0), limits = c(-plot_limits, plot_limits), labels = "0%") +
-
+  
   # add points
   geom_point(aes(x = affiliation_swap, y = group, color = party), size = point_size) +
+  
+  # scale x
+  scale_x_continuous(breaks = c(0), limits = c(-plot_limits, plot_limits), labels = "0%") +
+  
+  # add formatting
   scale_color_manual(values = c(blue_color, red_color)) +
   theme_minimal() +
-  labs(title = "Groups that Tilt Democrat") +
   theme(
     text = element_text(family = "Helvetica", face = "bold"),
     legend.position = "none",
@@ -361,7 +371,8 @@ plt3 <- ggplot(data = df_dem) +
     panel.grid.major.x = element_line(),
     plot.title = element_text(hjust = 0, size = 8),
     plot.title.position = "plot"
-  )
+  ) +
+  labs(title = "Groups that Tilt Democrat") 
 
 
 plt3
@@ -369,12 +380,16 @@ plt3
 # plot 4 total bar --------------------------------------------------------
 
 plt4 <- ggplot(data = df_adv) +
-  # Add segments
+ 
+  # add segments
   geom_bar(data = . %>% filter(group == "TOTAL"), aes(x = group, y = advantage), width = .25, stat = "identity", fill = blue_color) +
+  
   # add labels
   geom_text(data = . %>% filter(group == "TOTAL"), aes(x = group, y = advantage, label = paste0("+", advantage, "D")), nudge_y = fiddly_bit2, col = blue_color, size = 3) +
   scale_y_continuous(breaks = 0, limits = c(-10, 75)) +
   coord_flip(clip = "off") +
+  
+  # add formatting
   theme_minimal() +
   theme(
     text = element_text(family = "Helvetica", face = "bold"),
@@ -393,11 +408,17 @@ plt4
 
 
 plt5 <- ggplot(data = df2) +
-  # Add segments
+  # add segments
   geom_bar(aes(x = groupA, y = advantage, group = title, fill = title), stat = "identity", width = 0.5) +
+  
+  # add text labels
   geom_text(data = df2a, aes(x = groupA, y = advantage, label = lab), nudge_y = fiddly_bit6, col = "white", size = 2.5) +
   geom_text(data = df2b, aes(x = groupA, y = advantage, label = lab), nudge_y = fiddly_bit3, col = red_color, size = 2.5) +
+  
+  # scale y
   scale_y_continuous(breaks = c(0, 9), limits = c(-10, 70), labels = c("", "+9")) +
+  
+  # add formatting
   scale_fill_manual(values = c(red_color, "#FFFFFF00")) +
   coord_flip() +
   theme_minimal() +
@@ -419,12 +440,17 @@ plt5
 
 
 plt6 <- ggplot(data = df3) +
-  # Add segments
+  # add segments
   geom_bar(aes(x = groupB, y = advantage), stat = "identity", fill = blue_color, width = 0.5) +
+  
   # add labels
   geom_text(data = df3a, aes(x = groupB, y = advantage, label = lab), nudge_y = fiddly_bit7, col = blue_color, size = 2.5) +
   geom_text(data = df3b, aes(x = groupB, y = advantage, label = lab), nudge_y = fiddly_bit4, col = "white", size = 2.5) +
+  
+  # scale y
   scale_y_continuous(breaks = c(-9, 0), limits = c(-10, 70), labels = c("-9", "0")) +
+  
+  # add formatting
   coord_flip() +
   theme_minimal() +
   theme(
@@ -449,14 +475,16 @@ final_plot <- plt1 + plt4 + plt2 + plt5 + plt3 + plt6 +
   plot_annotation(
     title = "Strong Groups for the Democratic\nand Republican Parties",
     subtitle = "% of each group that identifies as ...",
-    caption = "Note: Whites and blacks include only those who are not Hispanic; Hispanics are of any\nrace. Asians are non-Hispanic and English speaking only.\nSource: All Pew Research Center political surveys from 2014. Based on the general public.\n\nRECREATION OF GRAPH BY PEW RESEARCH CENTER"
-  ) &
+    caption = "Note: Whites and blacks include only those who are not Hispanic; Hispanics are of any\nrace. 
+    Asians are non-Hispanic and English speaking only.\nSource: All Pew Research Center political surveys 
+    from 2014. Based on the general public.\n\nRECREATION OF GRAPH BY PEW RESEARCH CENTER") &
   theme(
     plot.caption = element_text(hjust = 0, color = "gray40", size = 7.5),
     plot.title = element_text(face = "bold", size = 12),
     plot.subtitle = element_text(colour = "gray40", face = "italic", family = "Times New Roman")
   )
 
+# add overlay for advantage label
 ggdraw(final_plot) + draw_text("ADVANTAGE", size = 7, x = 0.905, y = 0.85)
 
 
