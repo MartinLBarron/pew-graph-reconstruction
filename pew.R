@@ -475,9 +475,7 @@ final_plot <- plt1 + plt4 + plt2 + plt5 + plt3 + plt6 +
   plot_annotation(
     title = "Strong Groups for the Democratic\nand Republican Parties",
     subtitle = "% of each group that identifies as ...",
-    caption = "Note: Whites and blacks include only those who are not Hispanic; Hispanics are of any\nrace. 
-    Asians are non-Hispanic and English speaking only.\nSource: All Pew Research Center political surveys 
-    from 2014. Based on the general public.\n\nRECREATION OF GRAPH BY PEW RESEARCH CENTER") &
+    caption = "Note: Whites and blacks include only those who are not Hispanic; Hispanics are of any\nrace. Asians are non-Hispanic and English speaking only.\nSource: All Pew Research Center political surveys from 2014. Based on the general public.\n\nRECREATION OF GRAPH BY PEW RESEARCH CENTER") &
   theme(
     plot.caption = element_text(hjust = 0, color = "gray40", size = 7.5),
     plot.title = element_text(face = "bold", size = 12),
